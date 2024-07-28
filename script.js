@@ -18,6 +18,23 @@ function addBookToLibrary() {
     console.log(myLibrary);
 }
 
+
 function submit() {
     addBookToLibrary();
+    displayBook();
+}
+
+// Create a fucntion to display books added to library
+
+function displayBook() {
+    const bookCards = document.getElementById('bookCard');
+    bookCards.innerHTML = '';
+
+    myLibrary.forEach((book) => {
+        const bookInfo = `Title: ${book.title}, Author: ${book.author}, No. of Pages: ${book.pages}, Read: ${book.read ? 'Yes' : 'No'}`;
+        
+        const bookCard = document.createElement('div');
+        bookCard.innerText = bookInfo;
+        bookCards.appendChild(bookCard);
+    });
 }
