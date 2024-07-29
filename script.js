@@ -1,10 +1,13 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+let bookCount = 0;
+
+function Book(title, author, pages, read, num) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.num = num;
 }
 
 function addBookToLibrary() { 
@@ -13,7 +16,7 @@ function addBookToLibrary() {
     const pages = document.getElementById('pages').value;
     const read = document.getElementById('read').checked;
 
-    const newBook = new Book(title, author, pages, read);
+    const newBook = new Book(title, author, pages, read, ++bookCount);
     myLibrary.push(newBook);
     console.log(myLibrary);
 }
@@ -30,11 +33,25 @@ function displayBook() {
     const bookCards = document.getElementById('bookCard');
     bookCards.innerHTML = '';
 
-    myLibrary.forEach((book) => {
-        const bookInfo = `Title: ${book.title}, Author: ${book.author}, No. of Pages: ${book.pages}, Read: ${book.read ? 'Yes' : 'No'}`;
+    myLibrary.forEach((book, index) => {
+        const bookInfo = `SNo. ${book.num}, Title: ${book.title}, Author: ${book.author}, No. of Pages: ${book.pages}, Read: ${book.read ? 'Yes' : 'No'}`;
         
         const bookCard = document.createElement('div');
         bookCard.innerText = bookInfo;
         bookCards.appendChild(bookCard);
+
+        // Create remove button
+        const removebtn = document.createElement('button');
+        removebtn.innerText = 'Remove';
+        removebtn.onclick = () => {
+            removeBook(index);
+        }
+        bookCard.appendChild(removebtn);
     });
+}
+
+function removeBook(index){
+    myLibrary.splice(index, 1);
+    displayBook();
+    bookCount--;
 }
