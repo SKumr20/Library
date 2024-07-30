@@ -27,7 +27,7 @@ function submit() {
     displayBook();
 }
 
-// Create a fucntion to display books added to library
+// Create a function to display books added to library
 
 function displayBook() {
     const bookCards = document.getElementById('bookCard');
@@ -47,6 +47,19 @@ function displayBook() {
             removeBook(index);
         }
         bookCard.appendChild(removebtn);
+
+        // Create edit read status button
+
+        const editReadbtn = document.createElement('button');
+        editReadbtn.innerText = book.read ? 'Unread' : 'Read';
+
+
+        editReadbtn.onclick = () => {
+            editRead(book, editReadbtn);
+        }
+        
+        bookCard.appendChild(editReadbtn);
+        
     });
 }
 
@@ -55,3 +68,9 @@ function removeBook(index){
     displayBook();
     bookCount--;
 }
+function editRead(book, button) {
+    book.read = !book.read; // Toggle the read status
+    button.innerText = book.read ? 'Unread' : 'Read'; // Update button text
+    displayBook();
+}
+
